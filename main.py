@@ -15,21 +15,39 @@ class Node:
             self.next = Node()
 
     def __str__(self):
-        if self.value is not None:
-            out = str(self.value)
-            if self.next.value is not None:
-                out += ','
-                out += str(self.next)
-            return out
-        else:
-            return ''
+        return str(self.value)
+
+class LinkedList:
+    def __init__(self, values):
+        self.head = Node()
+        try:
+            self.concat(values)
+        except TypeError:
+            self.append(values)
+
+    def append(self, val):
+        self.head.append(val)
+
+    def concat(self, values):
+        for item in values:
+            self.append(item)
+
+    def iter(self):
+        curr = self.head
+        while curr.value is not None:
+            yield curr.value
+            curr = curr.next
+
+    def __str__(self):
+        out = '['
+        for item in self.iter():
+            out += str(item) + ', '
+        return out[:-2] + ']'
 
 
 def main():
-    mylist = Node()
-    mylist.append(1)
-    mylist.append(2)
-    mylist.append(3)
+    mylist = LinkedList([1, 2, 3])
+    mylist.concat([4, 5, 6])
     print(mylist)
 
 
