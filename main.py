@@ -58,7 +58,6 @@ def main():
     mylist = LinkedList(mylist1)
     mylist.concat(mylist2)
     print(mylist)
-    print(mylist)
 
 
 if __name__ == '__main__':
