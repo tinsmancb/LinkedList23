@@ -21,12 +21,14 @@ class LinkedList:
     def __init__(self, values):
         self.head = Node()
         self.curr = self.head
+        self.len = 0
         try:
             self.concat(values)
         except TypeError:
             self.append(values)
 
     def append(self, val):
+        self.len += 1
         self.head.append(val)
 
     def concat(self, values):
@@ -51,6 +53,9 @@ class LinkedList:
             out += str(item) + ', '
         return out[:-2] + ']'
 
+    def __len__(self):
+        return self.len
+
 
 def main():
     mylist1 = LinkedList([1, 2, 3])
@@ -58,6 +63,7 @@ def main():
     mylist = LinkedList(mylist1)
     mylist.concat(mylist2)
     print(mylist)
+    print(len(mylist))
 
 
 if __name__ == '__main__':
