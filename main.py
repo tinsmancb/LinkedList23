@@ -20,6 +20,7 @@ class Node:
 class LinkedList:
     def __init__(self, values):
         self.head = Node()
+        self.curr = self.head
         try:
             self.concat(values)
         except TypeError:
@@ -32,22 +33,31 @@ class LinkedList:
         for item in values:
             self.append(item)
 
-    def iter(self):
-        curr = self.head
-        while curr.value is not None:
-            yield curr.value
-            curr = curr.next
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.curr.value is not None:
+            out = self.curr.value
+            self.curr = self.curr.next
+            return out
+        else:
+            self.curr = self.head
+            raise StopIteration
 
     def __str__(self):
         out = '['
-        for item in self.iter():
+        for item in self:
             out += str(item) + ', '
         return out[:-2] + ']'
 
 
 def main():
-    mylist = LinkedList([1, 2, 3])
-    mylist.concat([4, 5, 6])
+    mylist1 = LinkedList([1, 2, 3])
+    mylist2 = LinkedList([4, 5, 6])
+    mylist = LinkedList(mylist1)
+    mylist.concat(mylist2)
+    print(mylist)
     print(mylist)
 
 
