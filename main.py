@@ -56,6 +56,26 @@ class LinkedList:
     def __len__(self):
         return self.len
 
+    def __getitem__(self, item):
+        if item in range(-self.len, self.len):
+            curr = self.head
+            item %= self.len
+            for _ in range(item):
+                curr = curr.next
+            return curr.value
+        else:
+            raise IndexError(f'Index {item} is out of range for list of length {self.len}.')
+
+    def __setitem__(self, key, value):
+        if key in range(-self.len, self.len):
+            curr = self.head
+            key %= self.len
+            for _ in range(key):
+                curr = curr.next
+            curr.value = value
+        else:
+            raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
+
 
 def main():
     mylist1 = LinkedList([1, 2, 3])
@@ -63,7 +83,10 @@ def main():
     mylist = LinkedList(mylist1)
     mylist.concat(mylist2)
     print(mylist)
-    print(len(mylist))
+    print(mylist[5])
+    #mylist[0] = 42
+    #print(mylist)
+
 
 
 if __name__ == '__main__':
