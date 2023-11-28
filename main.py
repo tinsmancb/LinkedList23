@@ -76,6 +76,49 @@ class LinkedList:
         else:
             raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
 
+    def __delitem__(self, key):
+        if key in range(-self.len, self.len):
+            curr = self.head
+            prev = None
+            key %= self.len
+            for _ in range(key):
+                prev = curr
+                curr = curr.next
+            if prev is not None:
+                prev.next = curr.next
+                curr.next = None
+            else:
+                self.head = self.head.next
+                self.curr = self.head
+                curr.next = None
+            self.len -= 1
+        else:
+            raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
+
+    def insert(self, key, item):
+        if key in range(-self.len, self.len):
+            curr = self.head
+            prev = None
+            key %= self.len
+            newNode = Node(item)
+            for _ in range(key):
+                prev = curr
+                curr = curr.next
+            if prev is not None:
+                prev.next = newNode
+                newNode.next = curr
+            else:
+                self.head = newNode
+                self.curr = self.head
+                newNode.next = curr
+            self.len += 1
+        elif key == self.len:
+            self.append(item)
+        else:
+            raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
+
+
+
 
 def main():
     mylist1 = LinkedList([1, 2, 3])
@@ -83,9 +126,8 @@ def main():
     mylist = LinkedList(mylist1)
     mylist.concat(mylist2)
     print(mylist)
-    print(mylist[5])
-    #mylist[0] = 42
-    #print(mylist)
+    mylist.insert(6, 42)
+    print(mylist)
 
 
 
