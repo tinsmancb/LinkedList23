@@ -78,42 +78,42 @@ class LinkedList:
 
     def __delitem__(self, key):
         if key in range(-self.len, self.len):
-            curr = self.head
-            prev = None
-            key %= self.len
+            curr = self.head  # Initialize current node to head
+            prev = None  # Initialize previous node as None (no node before head)
+            key %= self.len  # Handle negative exponents
             for _ in range(key):
-                prev = curr
+                prev = curr  # Advance through the list, updating prev and curr
                 curr = curr.next
             if prev is not None:
-                prev.next = curr.next
+                prev.next = curr.next  # Remove curr from the chain
                 curr.next = None
             else:
-                self.head = self.head.next
-                self.curr = self.head
+                self.head = self.head.next  # Handle the case where we are removing the first node in the list
+                self.curr = self.head  # Make sure we don't break the iterator we set up earlier
                 curr.next = None
-            self.len -= 1
+            self.len -= 1  # Decrement len since we removed a node from the chain.
         else:
             raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
 
     def insert(self, key, item):
         if key in range(-self.len, self.len):
-            curr = self.head
-            prev = None
-            key %= self.len
-            newNode = Node(item)
+            curr = self.head  # Initialize current node to head
+            prev = None  # Initialize previous node as None (no node before head)
+            key %= self.len  # Handle negative exponents
+            newnode = Node(item)  # Create a new node to store the new item.
             for _ in range(key):
-                prev = curr
+                prev = curr  # Advance through the list, updating prev and curr
                 curr = curr.next
             if prev is not None:
-                prev.next = newNode
-                newNode.next = curr
+                prev.next = newnode  # Insert a new node into the chain
+                newnode.next = curr
             else:
-                self.head = newNode
-                self.curr = self.head
-                newNode.next = curr
-            self.len += 1
+                self.head = newnode  # Handle the case where we are replacing the first node in the list
+                self.curr = self.head   # Make sure we don't break the iterator we set up earlier
+                newnode.next = curr
+            self.len += 1  # Increment len since we added a node to the chain.
         elif key == self.len:
-            self.append(item)
+            self.append(item)  # If we are adding a node at the end, simply use append.
         else:
             raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
 
