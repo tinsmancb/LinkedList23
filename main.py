@@ -118,8 +118,6 @@ class LinkedList:
             raise IndexError(f'Index {key} is out of range for list of length {self.len}.')
 
 
-
-
 def main():
     mylist1 = LinkedList([1, 2, 3])
     mylist2 = LinkedList([4, 5, 6])
@@ -128,7 +126,6 @@ def main():
     print(mylist)
     mylist.insert(6, 42)
     print(mylist)
-
 
 
 if __name__ == '__main__':
